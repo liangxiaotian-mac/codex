@@ -1,0 +1,199 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: radial-gradient(circle at top, #102447 0%, #090f1d 48%, #05070f 100%);
+  color: #e8f5ff;
+}
+
+.page {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-height: 100vh;
+  gap: 10px;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.tip {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.hud {
+  width: min(420px, 100%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 12px;
+  font-weight: 700;
+  color: #9de5ff;
+}
+
+.game-area {
+  position: relative;
+  width: 420px;
+  height: 640px;
+  border: 2px solid #6fcfff;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #102a50 0%, #0a1732 50%, #070d1f 100%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  outline: none;
+}
+
+.stars {
+  position: absolute;
+  inset: -200% 0 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+    radial-gradient(circle at 35% 60%, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    radial-gradient(circle at 70% 40%, rgba(255, 255, 255, 0.7) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.9) 1px, transparent 1px);
+  background-size: 180px 180px;
+  opacity: 0.35;
+  animation: star-drift 12s linear infinite;
+}
+
+@keyframes star-drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(50%);
+  }
+}
+
+.player,
+.enemy {
+  position: absolute;
+  text-align: center;
+  user-select: none;
+  line-height: 1;
+}
+
+.player {
+  width: 28px;
+  height: 28px;
+  font-size: 26px;
+  color: #8bf6ff;
+  text-shadow: 0 0 12px #73f5ff;
+  z-index: 4;
+}
+
+.enemy {
+  width: 28px;
+  height: 28px;
+  font-size: 25px;
+  color: #ff8a8a;
+  text-shadow: 0 0 12px #ff6262;
+  z-index: 3;
+}
+
+.enemy.heavy {
+  width: 38px;
+  height: 38px;
+  font-size: 30px;
+  color: #ffce88;
+  text-shadow: 0 0 14px #ff8b2f;
+}
+
+.bullet {
+  position: absolute;
+  width: 6px;
+  height: 14px;
+  border-radius: 3px;
+  background: linear-gradient(#fbff75, #ff9c00);
+  box-shadow: 0 0 10px #ffd000;
+  z-index: 2;
+}
+
+.flash {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff2a8;
+  box-shadow: 0 0 22px 10px rgba(255, 199, 51, 0.55);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.56);
+  z-index: 8;
+}
+
+button {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #06111e;
+  background: linear-gradient(135deg, #98f2ff, #5ad5ff);
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+.mobile-controls {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .tip {
+    font-size: 12px;
+  }
+
+  .game-area {
+    width: min(420px, calc(100vw - 24px));
+    height: min(640px, 68vh);
+  }
+
+  .mobile-controls {
+    display: grid;
+    gap: 8px;
+    user-select: none;
+  }
+
+  .mobile-controls .row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .mobile-controls button {
+    min-width: 68px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
